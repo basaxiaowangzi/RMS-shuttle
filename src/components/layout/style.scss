@@ -1,0 +1,39 @@
+.app-sider{
+  .app-brand{
+    width: 175px;
+    height: 17px;
+    margin: 30px auto;
+    &>img{
+      max-width: 100%;
+    }
+  }
+}
+.app-header{
+  .edit{
+    &::before{
+      content: '';
+      margin-right: 22px;
+      margin-left: 26px;
+      border-left: 2px solid #DDDDDD;
+      height: 24px;
+    }
+    &>i{
+      margin-right: 10px;
+      &:last-of-type{
+        margin-right: 0;
+      }
+    }
+  }
+  .ant-avatar{
+    margin-right: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #DDDDDD;
+  }
+}
+.ant-layout-header{
+  .base-diag-container{
+    line-height: 1;
+  }
+}
