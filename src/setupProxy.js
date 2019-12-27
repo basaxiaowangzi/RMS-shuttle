@@ -1,8 +1,8 @@
 const proxy = require('http-proxy-middleware');
 // const service = (context) => {
 //   const service = {
-//     test: 'http://test-tgy.caicchina.com',
-//     dev: 'http://dev-tgy.caicchina.com',
+//     test: 'http://test-yuhua.com',
+//     dev: 'http://dev-yuhua.com',
 //   }
 //   return Object.hasOwnProperty.call(service, context) ? service[context] : service['test']
 // }
@@ -12,7 +12,7 @@ module.exports = function(app) {
   app.use(
     '/test',
     proxy({
-      target: 'http://10.122.137.10:4080',
+      target: 'http://test-yuhua.com',
       "pathRewrite": {
         "^/test" : ""
       },
@@ -22,20 +22,11 @@ module.exports = function(app) {
   app.use(
     '/dev',
     proxy({
-      target: 'http://10.122.137.5:4080',
+      target: 'http://dev-yuhua.com',
       "pathRewrite": {
         "^/dev" : ""
       },
       changeOrigin: true,
     })
   );
-  app.use('/weixinApi',
-    proxy({
-      target: 'https://api.weixin.qq.com/',
-      pathRewrite: {
-        "^/weixinApi": ""
-      },
-      changeOrigin: true
-    })
-  )
 };
