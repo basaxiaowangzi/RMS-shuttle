@@ -1,7 +1,7 @@
 import React from 'react'
 import { HashRouter, Route, Redirect, Switch } from 'react-router-dom'
-import SetPwd from '../containers/Login/Setpwd'
-import Status from '../containers/Login/Status'
+// import SetPwd from '../containers/Login/Setpwd'
+// import Status from '../containers/Login/Status'
 import { getToken,getWeChatToken } from 'src/utils/token'
 import ViewMainBody from './mainBody'
 import RouteData from './route'
@@ -19,12 +19,12 @@ export default function Routes () {
   //   }
   // }, [])
   return (
-    <React.Suspense fallback={()=>{}}>
+    <React.Suspense fallback={<div>Loading...</div>}>
       <HashRouter basename={baseName}>
       <Switch>
         {/* <Redirect exact from={'/'} component={ViewMainBody} /> */}
-        <Route path='/setpwd' component={SetPwd} />
-        <Route path='/status' component={Status} />
+        {/* <Route path='/setpwd' component={SetPwd} />
+        <Route path='/status' component={Status} /> */}
         <Route path='/' component={ViewMainBody} />
         {/* {
           RouteData.map(({ path, component }, key) => (
@@ -32,8 +32,7 @@ export default function Routes () {
           ))
         } */}
       </Switch>
-    </HashRouter>
+      </HashRouter>
     </React.Suspense>
-    
   )
 }

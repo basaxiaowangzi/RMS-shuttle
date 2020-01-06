@@ -4,7 +4,7 @@ import React from 'react'
 import { Form, Col ,Input , Button, message} from 'antd'
 import api from 'api'
 import { setToken } from '../../utils/token'
-import './Login.scss'
+import './SetPwd.scss'
 
 class SetPwd extends  React.Component {
 
@@ -69,7 +69,7 @@ class SetPwd extends  React.Component {
     return (
       <div className='login-forgetpwd'>
             <div className='forgetpwd-div'>
-              <h3>设置登录密码</h3>
+              <h3>密码重置</h3>
               <React.Fragment>
                 {/* <p>重置密码并确认即可完成密码重置</p> */}
                 <Form onSubmit={this.sendpwf} >

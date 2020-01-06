@@ -20,7 +20,7 @@ export default function componentMainBody () {
           <AppSider />
         </Sider>
         <Content>
-          <React.Suspense fallback={()=>{}}>
+          <React.Suspense fallback={ <div>loading</div> }>
             <Switch>
               {
                 RouteData.map(({ path, component }, key) => (
