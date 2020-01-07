@@ -1,0 +1,15 @@
+.imgUrl{
+  display: block;
+  width: 200px;
+  height: 100px;
+  background-color: pink;
+  margin:0 auto;
+  margin-bottom: 10px;
+}
+.probox{
+  display: flex;
+  flex-wrap: wrap;
+}
+.pro-item{
+  margin:50px;
+}

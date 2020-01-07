@@ -65,7 +65,7 @@ class Login extends  React.Component {
                           ],
                         })(
                           <Input
-                            prefix={<img src={require('./assets/password.svg')} alt=''/>}
+                            prefix={<img src={require('../../assets/password.svg')} alt=''/>}
                             placeholder='请输入用户名'
                           />
                         )}
@@ -81,7 +81,7 @@ class Login extends  React.Component {
                           ],
                         })(
                           <Input
-                            prefix={<img src={require('./assets/password.svg')} alt='' />}
+                            prefix={<img src={require('../../assets/password.svg')} alt='' />}
                             placeholder='请输入密码'
                           />
                         )}

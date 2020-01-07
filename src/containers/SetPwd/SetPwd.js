@@ -86,7 +86,7 @@ class SetPwd extends  React.Component {
                           ],
                         })(
                           <Input.Password
-                            prefix={<img src={require('./assets/password.svg')} alt=''/>}
+                            prefix={<img src={require('../../assets/password.svg')} alt=''/>}
                             placeholder='请输入6~16位数字或字母组合'
                           />
                         )}
@@ -105,7 +105,7 @@ class SetPwd extends  React.Component {
                           ],
                         })(
                           <Input.Password onBlur={()=>this.handleConfirmBlur}
-                            prefix={<img src={require('./assets/password.svg')} alt='' />}
+                            prefix={<img src={require('../../assets/password.svg')} alt='' />}
                             placeholder='请再次输入新密码'
                           />
                         )}

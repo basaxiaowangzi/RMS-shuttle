@@ -18,7 +18,7 @@ const http = axios.create({
   },
   data: {},
 })
-
+// 请求之前拦截
 http.interceptors.request.use(
   (config) => {
     !loadingArr.length && NProgress.start()
@@ -36,7 +36,7 @@ http.interceptors.request.use(
     return Promise.reject(error)
   }
 )
-
+// 响应拦截
 http.interceptors.response.use(
   (config) => {
     loadingArr.shift()

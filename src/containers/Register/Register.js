@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {withRouter} from 'react-router-dom'
 import {
   Form,
   Input,
@@ -59,19 +60,18 @@ class RegistrationForm extends React.Component {
   };
 
   handleSubmit = e => {
-    console.log(this.props)
+    console.log(this.props,'----')
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
         // 发请求注册
         console.log(this,'----this')
-        this.props.history.push('/')
-        // api.registerInfo(values).then((data)=>{
-        //   console.log(data,'----register---data')
-        //   // 跳转到首页
-          
-        // })
+        api.registerInfo(values).then((data)=>{
+          console.log(data,'----register---data')
+          // 跳转到首页
+          this.props.history.push('/')
+        })
         
       }
     });
@@ -261,7 +261,7 @@ class RegistrationForm extends React.Component {
   }
 }
 
-const WrappedRegistrationForm = Form.create({ name: 'register' })(RegistrationForm);
+const WrappedRegistrationForm = Form.create({ name: 'register',mapPropsToFields(props){} })(RegistrationForm);
 
 export default class Register extends Component {
   render() {
@@ -269,7 +269,7 @@ export default class Register extends Component {
       <div className="register">
          <div className='register-div'>
           <h3>注&nbsp;&nbsp;册</h3>
-          <WrappedRegistrationForm></WrappedRegistrationForm>
+         <WrappedRegistrationForm history={this.props.history}></WrappedRegistrationForm>
          </div>
       </div>
     )

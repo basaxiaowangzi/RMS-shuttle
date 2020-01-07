@@ -1,5 +1,5 @@
 import React from 'react'
-import success from '../Login/assets/success.png'
+import success from '../../assets/success.png'
 
 export default class Status extends React.Component {
 
