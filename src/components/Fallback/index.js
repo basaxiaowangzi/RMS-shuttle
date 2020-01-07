@@ -12,6 +12,6 @@ export function Loading () {
 
 export default function Fallback () {
   return (
-    <Spin className={'Caic-Spin'} indicator={antIcon} tip={<div className='app-header'><h1>克而瑞测评</h1></div>} />
+    <Spin className={'Caic-Spin'} indicator={antIcon} tip={<div className='app-header'><h1>内容加载中...</h1></div>} />
   )
 }
