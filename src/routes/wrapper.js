@@ -12,9 +12,9 @@ export default function Routes () {
     <React.Suspense fallback={Fallback}>
       <HashRouter basename={baseName}>
       <Switch>
-        <Route path='/login' component={Login} />
-        <Route path='/register' component={Register} />
-        <Route path='/' component={ViewMainBody} />
+        <Route path='/login' exact component={Login} />
+        <Route path='/register' exact component={Register} />
+        <Route path='/'  component={ViewMainBody} />
       </Switch>
     </HashRouter>
     </React.Suspense>

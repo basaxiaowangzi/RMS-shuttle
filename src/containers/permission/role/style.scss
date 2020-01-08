@@ -1,0 +1,30 @@
+.container{
+  padding:20px;
+  box-sizing: border-box;
+}
+.addBtn{
+  width: 150px;
+  margin:40px 20px;
+}
+
+.addUser-form{
+ 
+  .ant-form-item{
+    display: flex;
+    justify-content: space-around;
+  }
+}
+.addUser-form:last-child .ant-form-item-control-wrapper .ant-form-item-children{
+  display: flex;
+
+}
+.form-button-cancel{
+  margin: 0 20px;
+  background-color:#fff;
+  height: 42px;
+  line-height: 42px;
+}
+.form-button-addUser{
+  margin:0 20px;
+  border-radius: 0;
+}

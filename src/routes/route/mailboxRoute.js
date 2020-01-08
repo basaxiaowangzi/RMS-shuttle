@@ -22,5 +22,10 @@ export default [
         path: '/register',
         component: React.lazy(()=>
             import ('src/containers/Register/Register'))
+    },
+    {
+        path: '/',
+        component: React.lazy(()=>
+            import ('src/containers/Home/home'))
     }
 ]
