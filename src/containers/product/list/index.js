@@ -1,17 +1,32 @@
 import React, { Component } from 'react'
-import { Card, Pagination } from 'antd';
+import { Card, Pagination, Button, Modal } from 'antd';
 import { NavLink } from 'react-router-dom'
 import Breadrumb from '../../../components/Breadrumb/index'
+import WrappedDemo from './AddProduct/index'
 import './style.scss'
 export default class list extends Component {
    state = {
      currentPage:0,
      total:11,
-     pageSize:5
+     pageSize:5,
+     showAddModal:false
    }
   onShowSizeChange = (current, pageSize) => {
     console.log(current,pageSize)
     this.setState({currentPage:current})
+  }
+  showAdd = () => {
+    this.setState({
+      showAddModal:true
+    })
+  }
+  handleOk = () => {
+
+  }
+  handleCancel = () => {
+    this.setState({
+      showAddModal:false
+    })
   }
   render() {
     let ProductList = [
@@ -33,6 +48,9 @@ export default class list extends Component {
     return (
   <div className="proList">
      <Breadrumb nameList={['首页','产品列表']} linkList={['/','/product/list']} ></Breadrumb>
+     <div className="addProduct">
+       <Button type="primary" onClick={this.showAdd}>新增器材</Button>
+     </div>
       <div className="probox">
       {/* 产品列表 */}
       {
@@ -41,6 +59,9 @@ export default class list extends Component {
             <div key={item.id} className="pro-item shadow">
               <Card title={item.name} extra={ <NavLink to={`/product/list/${item.id}`}>更多</NavLink>  } style={{ width: 300 }}>
                 <img src={item.imgUrl} className="imgUrl" alt="" width="300" height="300"/>
+               {/* 描述 */}
+                <p>{item.desc} {item.id}</p>
+                {/* 价格 */}
                 <p>{item.desc} {item.id}</p>
               </Card>
             </div>
@@ -57,6 +78,17 @@ export default class list extends Component {
       total={total}
       />
       </div>
+
+      {/* 新增器材  名称 图片  描述 价格*/}
+      <Modal
+          title="Basic Modal"
+          visible={this.state.showAddModal}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+         <WrappedDemo></WrappedDemo>
+      </Modal>
+
   </div>
     )
   }

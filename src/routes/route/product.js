@@ -5,6 +5,11 @@ export default [{
         component: React.lazy(() =>
             import ('src/containers/product/list'))
     },
+    {
+        path: '/product/groundlist',
+        component: React.lazy(() =>
+            import ('src/containers/product/groundList'))
+    },
     // {
     //     path: '/data-review/earn',
     //     component: React.lazy(() =>

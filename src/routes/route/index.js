@@ -6,6 +6,7 @@ import member from './member'
 import operate from './operate'
 import permission from './permission'
 import product from './product'
+import setting from './setting'
 
 export default [
   ...mailboxRoute,
@@ -14,5 +15,6 @@ export default [
   ...member,
   ...operate,
   ...permission,
-  ...product
+  ...product,
+  ...setting
 ]

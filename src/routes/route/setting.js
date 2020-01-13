@@ -1,16 +1,10 @@
 import React from 'react'
 
 export default [
-    // 场地领用率
     {
-        path: '/statistics/ground',
+        path: '/setting/userInfo',
         component: React.lazy(() =>
-            import ('src/containers/statistics/ground'))
-    },
-    {
-        path: '/statistics/userList',
-        component: React.lazy(() =>
-            import ('src/containers/statistics/userList'))
+            import ('src/containers/Setting/UserInfo'))
     },
     // {
     //     path: '/data-review/earn',

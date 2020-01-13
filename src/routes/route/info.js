@@ -1,6 +1,7 @@
 import React from 'react'
 
-export default [{
+export default [
+    {
         path: '/info/ground',
         component: React.lazy(() =>
             import ('src/containers/info/ground'))

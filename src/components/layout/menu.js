@@ -26,6 +26,11 @@ function menu (props) {
           name: '客户消费统计',
           key: 3
         },
+        {
+          path: '/statistics/userList',
+          name: '用户列表',
+          key: 17
+        },
       ]
     },
     {
@@ -120,6 +125,22 @@ function menu (props) {
           path: '/product/InOut',
           name: '器材上下架',
           key: 16
+        },
+        {
+          path: '/product/groundlist',
+          name: '场地列表',
+          key: 19
+        },
+      ]
+    },
+    {
+      path: '/setting',
+      name: '设置',
+      children: [
+        {
+          path: '/setting/userInfo',
+          name: '个人信息',
+          key: 18
         }
       ]
     },
