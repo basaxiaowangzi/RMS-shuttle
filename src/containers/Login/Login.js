@@ -14,10 +14,13 @@ class Login extends  React.Component {
   };
 
   componentDidMount () {
-    if(window.location.href.split('?')[1]){
-      const token = window.location.href.split('?')[1].split('=')[1] || ''
-      setToken(token)
-    }    
+    // if(window.location.href.split('?')[1]){
+    //   const token = window.location.href.split('?')[1].split('=')[1] || ''
+    //   setToken(token)
+    // }    
+    api.setPermission({}).then((res)=>{
+      console.log(res)
+    })
   }
 
   // 邮箱重制密码

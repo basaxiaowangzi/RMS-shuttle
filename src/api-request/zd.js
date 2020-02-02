@@ -7,8 +7,9 @@ if(process.env.NODE_ENV !== 'development') {
 }
 class Xhr {
 
-  loginforEmailUrl = `${proxyKey}/api/customer/setPwd`
-  registerInfoUrl = `${proxyKey}/api/customer/register`
+  // loginforEmailUrl = `${proxyKey}/api/customer/setPwd`
+  // registerInfoUrl = `${proxyKey}/api/customer/register`
+  permissionUrl = `${proxyKey}/permission/getPermission`
 
   // 邮箱登录
   loginforEmail = (data = {}) =>
@@ -17,7 +18,9 @@ class Xhr {
   registerInfo = (data = {}) =>
   apiReq(this.registerInfoUrl, data, 'post')
 
- 
+ // 权限设置
+  setPermission = (data = {}) =>
+  apiReq(this.permissionUrl, data);
 }
 
 export default new Xhr()

@@ -9,20 +9,20 @@ const proxy = require('http-proxy-middleware');
 
 module.exports = function(app) {
   // JSON.parse(process.env.npm_config_argv)
-  app.use(
-    '/test',
-    proxy({
-      target: 'http://test-yuhua.com',
-      "pathRewrite": {
-        "^/test" : ""
-      },
-      changeOrigin: true,
-    })
-  );
+  // app.use(
+  //   '/test',
+  //   proxy({
+  //     target: 'http://test-yuhua.com',
+  //     "pathRewrite": {
+  //       "^/test" : ""
+  //     },
+  //     changeOrigin: true,
+  //   })
+  // );
   app.use(
     '/dev',
     proxy({
-      target: 'http://dev-yuhua.com',
+      target: 'http://120.26.90.128:8768/v1/auth',
       "pathRewrite": {
         "^/dev" : ""
       },
