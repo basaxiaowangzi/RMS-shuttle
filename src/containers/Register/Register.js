@@ -12,6 +12,7 @@ import {
   Checkbox,
   Button,
   AutoComplete,
+  Radio
 } from 'antd';
 import api from 'api'
 import './Register.scss'
@@ -44,13 +45,11 @@ class RegistrationForm extends React.Component {
   };
 
   handleSubmit = e => {
-    console.log(this.props,'----')
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
         // 发请求注册
-        console.log(this,'----this')
         api.registerInfo(values).then((data)=>{
           console.log(data,'----register---data')
           // 跳转到首页
@@ -144,7 +143,7 @@ class RegistrationForm extends React.Component {
             </span>
           }
         >
-          {getFieldDecorator('nickname', {
+          {getFieldDecorator('userName', {
             rules: [{ required: true, message: '请输入昵称!', whitespace: true }],
           })(<Input />)}
         </Form.Item>
@@ -161,7 +160,7 @@ class RegistrationForm extends React.Component {
             ],
           })(<Input.Password />)}
         </Form.Item>
-        <Form.Item label="确认密码" hasFeedback>
+        {/* <Form.Item label="确认密码" hasFeedback>
           {getFieldDecorator('confirm', {
             rules: [
               {
@@ -173,7 +172,7 @@ class RegistrationForm extends React.Component {
               },
             ],
           })(<Input.Password onBlur={this.handleConfirmBlur} />)}
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item label="电话号码">
           {getFieldDecorator('phone', {
             rules: [{ required: true, message: '请输入电话号码!' }],
@@ -181,11 +180,25 @@ class RegistrationForm extends React.Component {
         </Form.Item>
         <Form.Item label="角色">
           {getFieldDecorator('role', {
-            initialValue: ['other'],
-            rules: [
-              { type: 'array', required: true, message: '请选择角色' },
-            ],
-          })(<Cascader options={residences} placeholder="请选择角色" size="small" />)}
+            initialValue:'other'
+          })(
+            <Radio.Group>
+              <Radio value="teacher">教师</Radio>
+              <Radio value="student">学生</Radio>
+              <Radio value="family">家属</Radio>
+              <Radio value="other">校外人员</Radio>
+            </Radio.Group>,
+          )}
+        </Form.Item>
+        <Form.Item label="入口">
+          {getFieldDecorator('channel', {
+            initialValue:'1'
+          })(
+            <Radio.Group>
+              <Radio value="1">客户端</Radio>
+              <Radio value="2">后台</Radio>
+            </Radio.Group>,
+          )}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">

@@ -2,40 +2,29 @@
 
 import React from 'react'
 import { HashRouter, Route, Link } from 'react-router-dom'
-import { Form, Col ,Input , Button, message} from 'antd'
+import { Form, Col ,Input , Button, message, Icon, Checkbox, Radio} from 'antd'
 import api from 'api'
 import { setToken } from '../../utils/token'
 import './Login.scss'
 
 class Login extends  React.Component {
-
-
-  state = {
-  };
-
-  componentDidMount () {
-    // if(window.location.href.split('?')[1]){
-    //   const token = window.location.href.split('?')[1].split('=')[1] || ''
-    //   setToken(token)
-    // }    
-    api.setPermission({}).then((res)=>{
-      console.log(res)
-    })
-  }
-
   // 邮箱重制密码
   loginSubmit = (e) => {
     e.preventDefault()
-    this.props.form.validateFields(['username','password'], (err, values) => {
+    this.props.form.validateFields(['phone','password','channel'], (err, values) => {
       if (!err) {
           let params = {
-            username: values.username,
-            password: values.password
+            phone: values.phone,
+            password: values.password,
+            channel:values.channel
           }
           api.loginforEmail( params )
           .then((data) => {
             if(data){
-              message.success('密码设置成功！')
+              console.log(data,'---data')
+              debugger
+              message.success('登录成功！')
+              setToken(data.token)
               this.props.history.push('/')
             }
           })
@@ -54,58 +43,48 @@ class Login extends  React.Component {
               <h3>登录</h3>
               <React.Fragment>
                 {/* <p>重置密码并确认即可完成密码重置</p> */}
-                <Form onSubmit={this.loginSubmit} >
-                  <Form.Item >
-                    <div className="input-btn-div">
-                      <Col span={24} >
-                        {getFieldDecorator('username', {
-                          rules: [
-                            { required: true, message: '请输入用户名' },
-                            {/* {
-                              validator: this.validateToNextUserName,
-                            },
-                            { pattern: /^[0-9a-zA-Z]{6,16}$/, message: '请输入6~16位数字或字母组合'}, */}
-                          ],
-                        })(
-                          <Input
-                            prefix={<img src={require('../../assets/password.svg')} alt=''/>}
-                            placeholder='请输入用户名'
-                          />
-                        )}
-                      </Col>
-                    </div>
-                    </Form.Item>
-                    <Form.Item>
-                    <div className="input-btn-div">
-                      <Col span={24} >
-                        {getFieldDecorator('password', {
-                          rules: [
-                            { required: true, message: '请输入密码' }
-                          ],
-                        })(
-                          <Input
-                            prefix={<img src={require('../../assets/password.svg')} alt='' />}
-                            placeholder='请输入密码'
-                          />
-                        )}
-                      </Col>
-                    </div>
-                    </Form.Item>
-                    <div className="other">
-                    <div className="forgetPassword"><Link to="/SetPwd">忘记密码</Link></div>
-                    <div className="register">没有账号？<Link to="/register">立即注册</Link></div>
-
-                    </div>
-                    <div className="input-btn-div submit-btn">
-                      <Button
-                          type='primary'
-                          htmlType='submit'
-                          className='login-form-button'
-                        >
-                         提交 
-                        </Button>
-                    </div>
-                </Form>
+                <Form onSubmit={this.loginSubmit} className="login-form">
+                  <Form.Item>
+                    {getFieldDecorator('phone', {
+                      rules: [{ required: true, message: '请输入手机号' }],
+                    })(
+                      <Input
+                        prefix={<Icon type="phone" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        placeholder="手机号"
+                      />,
+                    )}
+                  </Form.Item>
+                  <Form.Item>
+                    {getFieldDecorator('password', {
+                      rules: [{ required: true, message: '请输入密码' }],
+                    })(
+                      <Input
+                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        type="password"
+                        placeholder="密码"
+                      />,
+                    )}
+                  </Form.Item>
+                  <Form.Item>
+                    {getFieldDecorator('channel', {
+                      initialValue:'1',
+                      rules: [{ required: true, message: '入口' }],
+                    })(
+                      <Radio.Group>
+                      <Radio value="1">客户端</Radio>
+                      <Radio value="2">后台</Radio>
+                    </Radio.Group>
+                    )}
+                  </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit" className="login-form-button">
+                      登录
+                    </Button>
+                  </Form.Item>
+                  <Button type="link" href="#/register" block>
+                      立即注册
+                  </Button>
+        </Form>
               </React.Fragment>               
             </div>
       </div>

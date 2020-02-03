@@ -127,6 +127,12 @@
     .submit-btn{
       margin-top: 50px;
     }
+    .ant-form{
+      padding:0 20px 10px 20px;
+    }
+    .login-form{
+      margin-top: 20px;
+    }
     .ant-form-item{
       height: 75px;
       position: relative;
@@ -140,6 +146,17 @@
       margin-bottom: 24px;
     }
   }
+}
+.ant-form-item-children{
+  display: flex;
+  justify-content: space-evenly;
+}
+.login-form .ant-form-item:last-of-type{
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+.login-register .register-div .ant-form-item, .login-register .forgetpwd-div .ant-form-item, .login-register .registerinfo-div .ant-form-item, .login-forgetpwd .register-div .ant-form-item, .login-forgetpwd .forgetpwd-div .ant-form-item, .login-forgetpwd .registerinfo-div .ant-form-item, .login-registerinfo .register-div .ant-form-item, .login-registerinfo .forgetpwd-div .ant-form-item, .login-registerinfo .registerinfo-div .ant-form-item{
+  height: 50px;
 }
 .status-container{
   position: fixed;
@@ -165,5 +182,10 @@
 }
 .other{
   display: flex;
+  position: relative;
   justify-content: space-around;
+}
+.login-register .register-div h3, .login-register .forgetpwd-div h3, .login-register .registerinfo-div h3, .login-forgetpwd .register-div h3, .login-forgetpwd .forgetpwd-div h3, .login-forgetpwd .registerinfo-div h3, .login-registerinfo .register-div h3, .login-registerinfo .forgetpwd-div h3, .login-registerinfo .registerinfo-div h3{
+  margin-bottom: 0px;
+  margin-top: 50px;
 }

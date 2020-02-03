@@ -41,11 +41,10 @@ http.interceptors.response.use(
   (config) => {
     loadingArr.shift()
     !loadingArr.length && NProgress.done()
-
-    const { responseCode, responseMsg } = config.data
+    const { code:responseCode, message:responseMsg,result:data } = config.data
     // const code = ['operator31', 'token_error02', 'token_error01', 'token_error00', 'istorage03', '500']
-    if (responseCode === '000') {
-      return config.data.data
+    if (responseCode == '200') {
+      return Promise.resolve(config.data.result)
     } else if (responseCode === 'token_error01' || responseCode === 'token_error02' || responseCode === 'token_error00') {
       message.error(responseMsg)
       // clearToken()
@@ -62,7 +61,7 @@ http.interceptors.response.use(
     const params = {
       responseCode,
       responseMsg,
-      data: null,
+      data: data || null,
     }
     return Promise.reject(params)
   },
