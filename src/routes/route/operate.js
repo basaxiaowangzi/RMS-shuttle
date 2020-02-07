@@ -5,6 +5,11 @@ export default [{
         component: React.lazy(() =>
             import ('src/containers/operate/money'))
     },
+    {
+        path: '/operate/bookGround',
+        component: React.lazy(() =>
+            import ('src/containers/operate/bookGround'))
+    }
     // {
     //     path: '/data-review/earn',
     //     component: React.lazy(() =>

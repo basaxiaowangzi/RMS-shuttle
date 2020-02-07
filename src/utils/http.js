@@ -21,6 +21,7 @@ const http = axios.create({
 // 请求之前拦截
 http.interceptors.request.use(
   (config) => {
+    console.log(config,'请求拦截')
     !loadingArr.length && NProgress.start()
     loadingArr.push('小美女')
     const token = getToken()

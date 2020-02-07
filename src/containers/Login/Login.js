@@ -21,8 +21,6 @@ class Login extends  React.Component {
           api.loginforEmail( params )
           .then((data) => {
             if(data){
-              console.log(data,'---data')
-              debugger
               message.success('登录成功！')
               setToken(data.token)
               this.props.history.push('/')
@@ -36,7 +34,8 @@ class Login extends  React.Component {
   }
 
   render () {
-    const { getFieldDecorator } = this.props.form
+    const { getFieldDecorator } = this.props.form;
+    const res = this.props.location.search.slice(1).split('&');
     return (
       <div className='login-forgetpwd'>
             <div className='forgetpwd-div'>
@@ -46,6 +45,7 @@ class Login extends  React.Component {
                 <Form onSubmit={this.loginSubmit} className="login-form">
                   <Form.Item>
                     {getFieldDecorator('phone', {
+                      initialValue:res[0]&&res[0].split('=')[1] || '',
                       rules: [{ required: true, message: '请输入手机号' }],
                     })(
                       <Input
@@ -56,6 +56,7 @@ class Login extends  React.Component {
                   </Form.Item>
                   <Form.Item>
                     {getFieldDecorator('password', {
+                      initialValue:res[1]&&res[1].split('=')[1] || '',
                       rules: [{ required: true, message: '请输入密码' }],
                     })(
                       <Input
@@ -67,7 +68,7 @@ class Login extends  React.Component {
                   </Form.Item>
                   <Form.Item>
                     {getFieldDecorator('channel', {
-                      initialValue:'1',
+                      initialValue:res[2]&&res[2].split('=')[1] || '',
                       rules: [{ required: true, message: '入口' }],
                     })(
                       <Radio.Group>

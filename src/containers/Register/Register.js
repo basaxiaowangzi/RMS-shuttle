@@ -12,6 +12,7 @@ import {
   Checkbox,
   Button,
   AutoComplete,
+  message,
   Radio
 } from 'antd';
 import api from 'api'
@@ -51,11 +52,10 @@ class RegistrationForm extends React.Component {
         console.log('Received values of form: ', values);
         // 发请求注册
         api.registerInfo(values).then((data)=>{
-          console.log(data,'----register---data')
           // 跳转到首页
-          this.props.history.push('/')
+          message.info('注册成功')
+          this.props.history.push(`/login?phone=${values.phone}&password=${values.password}&channel=${values.channel}`)
         })
-        
       }
     });
   };
