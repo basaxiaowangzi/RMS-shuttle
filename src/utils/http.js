@@ -26,7 +26,7 @@ http.interceptors.request.use(
     loadingArr.push('小美女')
     const token = getToken()
     if (token) {
-      config.headers.token = token
+      config.headers.Authorization = token
     }
 
     return config

@@ -11,13 +11,19 @@ class Xhr {
   loginforEmailUrl = `${proxyKey}/member/login`
   registerInfoUrl = `${proxyKey}/member/regMember`
   permissionUrl = `${proxyKey}/permission/getPermission`
+  getProGrdListUrl = `${proxyKey}/reserve/getReserveList` //获取场地器材列表
 
-  // 邮箱登录
+  // 登录
   loginforEmail = (data = {}) =>
   apiReq(this.loginforEmailUrl, data,'post');
-  
+  // 注册
   registerInfo = (data = {}) =>
-  apiReq(this.registerInfoUrl, data, 'post')
+  apiReq(this.registerInfoUrl, data, 'post');
+  // 获取场地器材列表
+  getProGrdList = (data = {}) =>
+  apiReq(this.getProGrdListUrl, data, 'post');
+
+
 
  // 权限设置
   setPermission = (data = {}) =>

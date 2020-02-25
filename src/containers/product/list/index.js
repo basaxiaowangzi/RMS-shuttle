@@ -3,6 +3,7 @@ import { Card, Pagination, Button, Modal } from 'antd';
 import { NavLink } from 'react-router-dom'
 import Breadrumb from '../../../components/Breadrumb/index'
 import WrappedDemo from './AddProduct/index'
+import api from 'api'
 import './style.scss'
 export default class list extends Component {
    state = {
@@ -17,7 +18,9 @@ export default class list extends Component {
   }
   showAdd = () => {
     this.setState({
-      showAddModal:true
+      showAddModal:true,
+      ProductList: [],
+      GroundList: []
     })
   }
   handleOk = () => {
@@ -28,23 +31,20 @@ export default class list extends Component {
       showAddModal:false
     })
   }
+  getProductList=()=> {
+    Promise.all([
+      api.getProGrdList({type:'1'}),
+      api.getProGrdList({type:'2'})
+    ]).then(([pro,gro]) => {
+      console.log(pro,gro)
+    })
+  }
+  componentDidMount(){
+    this.getProductList()
+  }
   render() {
-    let ProductList = [
-      {id:'01',name:'产品1',imgUrl:'../../../assets/login-picture/setPwd.png',desc:'哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵'},
-      {id:'02',name:'产品1',imgUrl:'../../../assets/login-picture/setPwd.png',desc:'哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵'},
-      {id:'03',name:'产品1',imgUrl:'../../../assets/login-picture/setPwd.png',desc:'哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵'},
-      {id:'04',name:'产品1',imgUrl:'../../../assets/login-picture/setPwd.png',desc:'哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵'},
-      {id:'05',name:'产品1',imgUrl:'../../../assets/login-picture/setPwd.png',desc:'哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵'},
-      {id:'06',name:'产品1',imgUrl:'../../../assets/login-picture/setPwd.png',desc:'哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵'},
-      {id:'07',name:'产品1',imgUrl:'../../../assets/login-picture/setPwd.png',desc:'哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵'},
-      {id:'08',name:'产品1',imgUrl:'../../../assets/login-picture/setPwd.png',desc:'哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵'},
-      {id:'09',name:'产品1',imgUrl:'../../../assets/login-picture/setPwd.png',desc:'哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵'},
-      {id:'10',name:'产品1',imgUrl:'../../../assets/login-picture/setPwd.png',desc:'哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵'},
-      {id:'11',name:'产品1',imgUrl:'../../../assets/login-picture/setPwd.png',desc:'哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵呵呵'},
-    ];
-    const { currentPage, total, pageSize } = this.state;
-    console.log(pageSize)
-   const newProductList = ProductList.slice((pageSize*( currentPage-1 ),pageSize*currentPage));
+    let {ProductList=[]} = this.state;
+   const { currentPage, total, pageSize } = this.state;
     return (
   <div className="proList">
      <Breadrumb nameList={['首页','产品列表']} linkList={['/','/product/list']} ></Breadrumb>
@@ -54,7 +54,7 @@ export default class list extends Component {
       <div className="probox">
       {/* 产品列表 */}
       {
-        newProductList.map((item, index) => {
+        ProductList.map((item, index) => {
           return (
             <div key={item.id} className="pro-item shadow">
               <Card title={item.name} extra={ <NavLink to={`/product/list/${item.id}`}>更多</NavLink>  } style={{ width: 300 }}>
@@ -70,14 +70,14 @@ export default class list extends Component {
       }
      </div>
       {/* 分页 */}
-      <div className="pager">
+      {/* <div className="pager">
       <Pagination
       showSizeChanger
       onShowSizeChange={this.onShowSizeChange}
       defaultCurrent={currentPage}
       total={total}
       />
-      </div>
+      </div> */}
 
       {/* 新增器材  名称 图片  描述 价格*/}
       <Modal
