@@ -6,45 +6,45 @@
   top: 0;
   background: url('../../assets/login-picture/setPwd.png') top center no-repeat;
   background-size: cover;
-}
-.register-div {
-  width: 600px;
-  height: 670px;
-  background:rgba(255,255,255,1);
-  border-radius:20px;
-  margin:50px auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  h3{
-    font-size:26px;
-    font-weight: bold;
-    margin: 50px 0px 20px 0px;
-    text-align: center;
-    margin-bottom: 50px;
+  .register-div {
+    width: 600px;
+    height: 670px;
+    background:rgba(255,255,255,1);
+    border-radius:20px;
+    margin:50px auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    h3{
+      font-size:26px;
+      font-weight: bold;
+      margin: 50px 0px 20px 0px;
+      text-align: center;
+      margin-bottom: 50px;
+    }
   }
-}
-.ant-form{
-  padding-right:100px;
-}
-.ant-form-item {
-  margin-bottom: 20px;
-}
-.ant-input{
-  height: 40px;
-  padding-left: 40px !important;
-  font-size: 16px;
-  // border: 0;
-  border-radius: 27px;
-}
-.ant-btn-primary{
-  width: 88%;
-  height: 42px;
-  line-height: 42px;
-  font-size: 16px;
-  box-shadow: 0 4px 10px 2px #ccd5fe;
-  border-radius: 28px;
-  margin:0 auto;
+  .ant-form{
+    padding-right:100px;
+  }
+  .ant-form-item {
+    margin-bottom: 20px;
+  }
+  .ant-input{
+    height: 40px;
+    padding-left: 40px !important;
+    font-size: 16px;
+    // border: 0;
+    border-radius: 27px;
+  }
+  .ant-btn-primary{
+    width: 88%;
+    height: 42px;
+    line-height: 42px;
+    font-size: 16px;
+    box-shadow: 0 4px 10px 2px #ccd5fe;
+    border-radius: 28px;
+    margin:0 auto;
+  }
 }

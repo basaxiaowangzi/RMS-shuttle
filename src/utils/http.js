@@ -54,10 +54,10 @@ http.interceptors.response.use(
       return null
     } else {
       message.error(responseMsg)
-      // clearToken()
-      // window.history.replaceState(null, '', '/#/login')
-      // window.location.reload()
-      // return null
+      clearToken()
+      window.history.replaceState(null, '', '/#/login')
+      window.location.reload()
+      return null
     }
     const params = {
       responseCode,

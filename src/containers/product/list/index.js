@@ -24,7 +24,10 @@ export default class list extends Component {
     })
   }
   handleOk = () => {
-
+    this.setState({
+      showAddModal:false
+    })
+    this.getProductList()
   }
   handleCancel = () => {
     this.setState({
@@ -81,12 +84,13 @@ export default class list extends Component {
 
       {/* 新增器材  名称 图片  描述 价格*/}
       <Modal
-          title="Basic Modal"
+          title="新增器材"
           visible={this.state.showAddModal}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          footer={null}
         >
-         <WrappedDemo></WrappedDemo>
+         <WrappedDemo close={this.handleOk}></WrappedDemo>
       </Modal>
 
   </div>
