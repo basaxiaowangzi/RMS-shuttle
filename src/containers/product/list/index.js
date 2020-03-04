@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Pagination, Button, Modal, Avatar } from 'antd';
+import { Card, Pagination, Button, Modal, Avatar , message} from 'antd';
 import { NavLink } from 'react-router-dom'
 import Breadrumb from '../../../components/Breadrumb/index'
 import WrappedDemo from './AddProduct/index'
@@ -49,6 +49,19 @@ export default class list extends Component {
       console.log(res,'----->')
     })
   }
+  // 器材下架
+  upOrDown(id, status) {
+    if(status === '1'){
+      status = '2'
+    }else{
+      status = '1'
+    }
+    api.upOrDown({id, status}).then(res => {
+      var str = status === '1' ? '器材上架成功' : '器材下架成功'
+      res && this.getProductList();
+      res && message.success(str);
+    })
+  }
   render() {
     let {ProductList=[]} = this.state;
     return (
@@ -83,7 +96,8 @@ export default class list extends Component {
                type="primary" 
                shape='round'
                size='small'
-               onClick={(id)=>{this.getMoreInfo(id)}}
+               onClick={()=>{this.upOrDown(item.id, item.upStatus)}}
+               style={{backgroundColor:item.upStatus === '2' ? 'green': 'red', borderColor:'#ccc'}}
                >{item.upStatus === '1' ? '下架': '上架'}</Button>  }
               style={{ width: 200 }}
               >

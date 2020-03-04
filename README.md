@@ -7,6 +7,7 @@
 个人信息
 场地下单
 场地预定   swagger地址:http://120.26.90.128:8763/swagger-ui.html#/t45reserve45controller
+http://120.26.90.128:8763/swagger-ui.html  最新接口文档
 器材下单
 角色管理（学生 教工 家属 校外人员--角色不同充值折扣不同）
 场地信息发布

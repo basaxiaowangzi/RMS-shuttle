@@ -14,6 +14,7 @@ class Xhr {
   getProGrdListUrl = `${proxyKey}/reserve/getReserveList` //获取场地器材列表
   addEquipmentInfo = `${proxyKey}/reserve/add`
   getReservertimerList = `${proxyKey}/reserve/getReserveTime`
+  upOrDownUrl = `${proxyKey}/reserve/updateStatus`
   // 登录
   loginforEmail = (data = {}) =>
   apiReq(this.loginforEmailUrl, data,'post');
@@ -33,6 +34,10 @@ class Xhr {
   // 根据id获取器材或者场地可预约时间
   getReserverTime = (data = {}) => 
   apiReq(this.getReservertimerList, data, 'post');
+
+  // 器材场地上下架
+  upOrDown = (data= {}) => 
+  apiReq(this.upOrDownUrl, data, 'post')
 
 
  // 权限设置
