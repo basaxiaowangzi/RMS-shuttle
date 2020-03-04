@@ -1,16 +1,119 @@
-import React from 'react'
-
+import React, { Component } from 'react'
+import { Card, Pagination, Button, Modal, Avatar } from 'antd';
+import { NavLink } from 'react-router-dom'
+import Breadrumb from '../../../components/Breadrumb/index'
+import WrappedDemo from '../list/AddProduct/index'
+import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import api from 'api'
 import './style.scss'
+const { Meta } = Card;
 
-export default class Ground extends React.Component {
+const DEFAULTIMG = 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2167964995,4117592449&fm=26&gp=0.jpg';
 
-    componentDidMount () {
-        console.log('dddddd')
-    }
+export default class list extends Component {
+   state = {
+     showAddModal:false,
+     groundList: []
+   }
+  showAdd = () => {
+    this.setState({
+      showAddModal:true
+    })
+  }
+  handleOk = () => {
+    this.setState({
+      showAddModal:false
+    })
+    this.getGroundList()
+  }
+  handleCancel = () => {
+    this.setState({
+      showAddModal:false
+    })
+  }
+  getGroundList=()=> {
+      api.getProGrdList({type:'2'}).then((gro) => {
+      this.setState({groundList:gro})
+    })
+  }
+  componentDidMount(){
+    this.getGroundList();
+  }
+  renderTimer(t) {
+    var arr = t || [];
+    return arr.map(a => <span key={+new Date() + a}>a</span>)
+  }
+  // 或者场地预约时间
+  getReserverTimer(id) {
+    // 根据产品id获取产品预约时间
+    api.getReserverTime({id}).then(res=>{
+      console.log(res,'----->')
+    })
+  }
+  render() {
+    let {groundList=[]} = this.state;
+    return (
+  <div className="proList">
+     <Breadrumb nameList={['首页','场地列表']} linkList={['/','/product/groundList']} ></Breadrumb>
+     <div className="addProduct">
+       <Button type="primary" onClick={this.showAdd}>新增场地</Button>
+     </div>
+      <div className="probox">
+      {/* 产品列表 */}
+      {
+        groundList.map((item, index) => {
+          return (
+            <div key={item.id} className="pro-item shadow">
+            <Card 
+              title={item.title}
+              cover={
+                <img
+                  alt={item.title}
+                  src={item.img || DEFAULTIMG}
+                  width="100px"
+                  height="100px"
+                />}
+               actions={[
+                <SettingOutlined key="setting" />,
+                <EditOutlined key="edit" />,
+                <EllipsisOutlined key="ellipsis" />,
+                ]}
+               extra={ 
+               <Button 
+               type="primary" 
+               shape='round'
+               size='small'
+               onClick={(id)=>{this.getMoreInfo(id)}}
+               >{item.upStatus === '1' ? '下架': '上架'}</Button>  } 
+               style={{ width: 200 }
+               }
+               >
+                <Meta
+                    avatar={<Avatar src={item.img || DEFAULTIMG} />}
+                    title={item.title}
+                    description={item.title}
+                />
+              </Card>
+            </div>
+          )
+        })
+      }
+     </div>
 
-    render() {
-        return (
-            <div className='container'>场地列表</div>
-        )
-    }
+      {/* 新增器材  名称 图片  描述 价格*/}
+      <Modal
+          title="新增场地"
+          visible={this.state.showAddModal}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          footer={null}
+     >
+         <WrappedDemo close={this.handleOk} type={'2'}></WrappedDemo>
+      </Modal>
+
+      {/* 获取器材预约时间*/}
+     
+  </div>
+    )
+  }
 }

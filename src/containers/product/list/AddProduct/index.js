@@ -20,7 +20,7 @@ class AddProduct extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        values.type = '2'
+        values.type = this.props.type;
         api.addEquipment(values).then((res)=>{
           console.log(res)
           if(res){
@@ -42,7 +42,7 @@ class AddProduct extends React.Component {
     this.setState({
       timeArr: arr
     },()=>{
-      this.props.form.setFieldsValue({reserverTime: JSON.stringify(this.state.timeArr)})
+      this.props.form.setFieldsValue({reserverList:this.state.timeArr})
       console.log(this.state.timeArr)
     })
   }
@@ -72,7 +72,7 @@ class AddProduct extends React.Component {
             })(<Input placeholder="请输入价格"/>)}
           </Form.Item>
           <Form.Item label="可预约时间">
-            {getFieldDecorator('reserverTime', {
+            {getFieldDecorator('reserverList', {
               rules: [{ required: true, message: '请选择预约时间！' }],
             })(<span onClick={this.timeShow}>添加</span>)}
             {

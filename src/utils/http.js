@@ -21,10 +21,10 @@ const http = axios.create({
 // 请求之前拦截
 http.interceptors.request.use(
   (config) => {
-    console.log(config,'请求拦截')
     !loadingArr.length && NProgress.start()
     loadingArr.push('小美女')
     const token = getToken()
+    console.log(token,'----->')
     if (token) {
       config.headers.Authorization = token
     }
@@ -53,10 +53,10 @@ http.interceptors.response.use(
       // window.location.reload()
       return null
     } else {
-      message.error(responseMsg)
-      clearToken()
-      window.history.replaceState(null, '', '/#/login')
-      window.location.reload()
+      // message.error(responseMsg)
+      // clearToken()
+      // window.history.replaceState(null, '', '/#/login')
+      // window.location.reload()
       return null
     }
     const params = {

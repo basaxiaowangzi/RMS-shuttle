@@ -121,11 +121,11 @@ function menu (props) {
           name: '器材列表',
           key: 15
         },
-        {
-          path: '/product/InOut',
-          name: '器材上下架',
-          key: 16
-        },
+        // {
+        //   path: '/product/InOut',
+        //   name: '器材上下架',
+        //   key: 16
+        // },
         {
           path: '/product/groundlist',
           name: '场地列表',

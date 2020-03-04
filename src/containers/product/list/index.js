@@ -1,26 +1,22 @@
 import React, { Component } from 'react'
-import { Card, Pagination, Button, Modal } from 'antd';
+import { Card, Pagination, Button, Modal, Avatar } from 'antd';
 import { NavLink } from 'react-router-dom'
 import Breadrumb from '../../../components/Breadrumb/index'
 import WrappedDemo from './AddProduct/index'
 import api from 'api'
 import './style.scss'
+import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+
+const { Meta } = Card;
+
+const DEFAULTIMG = 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2167964995,4117592449&fm=26&gp=0.jpg';
 export default class list extends Component {
    state = {
-     currentPage:0,
-     total:11,
-     pageSize:5,
      showAddModal:false
    }
-  onShowSizeChange = (current, pageSize) => {
-    console.log(current,pageSize)
-    this.setState({currentPage:current})
-  }
   showAdd = () => {
     this.setState({
-      showAddModal:true,
-      ProductList: [],
-      GroundList: []
+      showAddModal:true
     })
   }
   handleOk = () => {
@@ -35,19 +31,26 @@ export default class list extends Component {
     })
   }
   getProductList=()=> {
-    Promise.all([
-      api.getProGrdList({type:'1'}),
-      api.getProGrdList({type:'2'})
-    ]).then(([pro,gro]) => {
-      console.log(pro,gro)
+      api.getProGrdList({type:'1'}).then((pro) => {
+      this.setState({ProductList:pro})
     })
   }
   componentDidMount(){
     this.getProductList()
   }
+  renderTimer(t) {
+    var arr = t || [];
+    return arr.map(a => <span key={+new Date() + a}>a</span>)
+  }
+  // 或者预约时间
+  getReserverTimer(id) {
+    // 根据产品id获取产品预约时间
+    api.getReserverTime({id}).then(res=>{
+      console.log(res,'----->')
+    })
+  }
   render() {
     let {ProductList=[]} = this.state;
-   const { currentPage, total, pageSize } = this.state;
     return (
   <div className="proList">
      <Breadrumb nameList={['首页','产品列表']} linkList={['/','/product/list']} ></Breadrumb>
@@ -60,27 +63,41 @@ export default class list extends Component {
         ProductList.map((item, index) => {
           return (
             <div key={item.id} className="pro-item shadow">
-              <Card title={item.name} extra={ <NavLink to={`/product/list/${item.id}`}>更多</NavLink>  } style={{ width: 300 }}>
-                <img src={item.imgUrl} className="imgUrl" alt="" width="300" height="300"/>
-               {/* 描述 */}
-                <p>{item.desc} {item.id}</p>
-                {/* 价格 */}
-                <p>{item.desc} {item.id}</p>
+              <Card 
+              title={item.title}
+              cover={
+                <img
+                  alt={item.title}
+                  src={item.img || DEFAULTIMG}
+                  width="100px"
+                  height="100px"
+                />
+              }
+              actions={[
+                <SettingOutlined key="setting" />,
+                <EditOutlined key="edit" />,
+                <EllipsisOutlined key="ellipsis" />,
+               ]}
+               extra={ 
+               <Button 
+               type="primary" 
+               shape='round'
+               size='small'
+               onClick={(id)=>{this.getMoreInfo(id)}}
+               >{item.upStatus === '1' ? '下架': '上架'}</Button>  }
+              style={{ width: 200 }}
+              >
+              <Meta
+                    avatar={<Avatar src={item.img || DEFAULTIMG} />}
+                    title={item.title}
+                    description={item.title}
+              />
               </Card>
             </div>
           )
         })
       }
      </div>
-      {/* 分页 */}
-      {/* <div className="pager">
-      <Pagination
-      showSizeChanger
-      onShowSizeChange={this.onShowSizeChange}
-      defaultCurrent={currentPage}
-      total={total}
-      />
-      </div> */}
 
       {/* 新增器材  名称 图片  描述 价格*/}
       <Modal
@@ -89,10 +106,12 @@ export default class list extends Component {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={null}
-        >
-         <WrappedDemo close={this.handleOk}></WrappedDemo>
+     >
+         <WrappedDemo close={this.handleOk} type={'1'}></WrappedDemo>
       </Modal>
 
+      {/* 获取器材预约时间*/}
+     
   </div>
     )
   }
