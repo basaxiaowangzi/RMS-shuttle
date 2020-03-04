@@ -2,15 +2,15 @@ import { apiReq } from './services'
 const argv = process.env.PROXY || {}
 let proxyKey = argv.original[1] || 'dev'
 
-if(process.env.NODE_ENV !== 'development') {
+// if(process.env.NODE_ENV !== 'development') {
   proxyKey = ''
-}
+// }
 console.log(proxyKey,'proxyKey')
 class Xhr {
 
-  loginforEmailUrl = `${proxyKey}/member/login`
-  registerInfoUrl = `${proxyKey}/member/regMember`
-  permissionUrl = `${proxyKey}/permission/getPermission`
+  loginforEmailUrl = `${proxyKey}/auth/member/login`
+  registerInfoUrl = `${proxyKey}/auth/member/regMember`
+  permissionUrl = `${proxyKey}/auth/permission/getPermission`
   getProGrdListUrl = `${proxyKey}/reserve/getReserveList` //获取场地器材列表
   addEquipmentInfo = `${proxyKey}/reserve/add`
   getReservertimerList = `${proxyKey}/reserve/getReserveTime`

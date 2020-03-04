@@ -20,11 +20,21 @@ module.exports = function(app) {
   //   })
   // );
   app.use(
-    '/dev',
+    '/auth',
     proxy({
       target: 'http://120.26.90.128:8768/v1/auth',
       "pathRewrite": {
-        "^/dev" : ""
+        "^/auth" : ""
+      },
+      changeOrigin: true,
+    })
+  );
+    app.use(
+    '/reserve',
+    proxy({
+      target: 'http://120.26.90.128:8768/v1/reserve/reserve',
+      "pathRewrite": {
+        "^/reserve" : ""
       },
       changeOrigin: true,
     })
