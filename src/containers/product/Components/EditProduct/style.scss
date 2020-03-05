@@ -1,0 +1,34 @@
+.form-container{
+    .ant-form .ant-form-item{
+        &:nth-child(4){
+            .ant-form-item-control .ant-form-item-children{
+                position: absolute;
+                width: 100%;
+                justify-content: flex-start;
+                >span{
+                    cursor: pointer;
+                    color: #1890ff;
+                }
+                .time-container{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 999;
+                    .ant-time-picker{
+                        &:nth-child(1){
+                            margin-right: 10px;
+                        }
+                    }
+                }
+                .time-list{
+                    position: absolute;
+                    margin-left: 40px;
+                    line-height: normal;
+                }
+            }
+        }
+        &:nth-child(6) .ant-form-item-children{
+            justify-content: flex-start;
+        }
+    }
+}

@@ -1,22 +1,32 @@
 import React, { Component } from 'react'
 import { Card, Pagination, Button, Modal, Avatar , message} from 'antd';
 import { NavLink } from 'react-router-dom'
+import { EditOutlined, FieldTimeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+
 import Breadrumb from '../../../components/Breadrumb/index'
 import WrappedDemo from './AddProduct/index'
+import WrappedEdit from '../Components/EditProduct/index'
 import api from 'api'
 import './style.scss'
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
 const DEFAULTIMG = 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2167964995,4117592449&fm=26&gp=0.jpg';
 export default class list extends Component {
    state = {
-     showAddModal:false
+     showAddModal:false,
+     showBookModal: false,
+     activeBookInfo: {}
    }
   showAdd = () => {
     this.setState({
       showAddModal:true
+    })
+  }
+  showBookInfoModel= (info) => {
+    this.setState({
+      showBookModal: true,
+      activeBookInfo: info
     })
   }
   handleOk = () => {
@@ -28,6 +38,17 @@ export default class list extends Component {
   handleCancel = () => {
     this.setState({
       showAddModal:false
+    })
+  }
+  handleBookOk =() => {
+    this.setState({
+      showBookModal: false
+    })
+    this.getProductList()
+  }
+  handleBookCancel =() => {
+    this.setState({
+      showBookModal:false
     })
   }
   getProductList=()=> {
@@ -42,13 +63,7 @@ export default class list extends Component {
     var arr = t || [];
     return arr.map(a => <span key={+new Date() + a}>a</span>)
   }
-  // 或者预约时间
-  getReserverTimer(id) {
-    // 根据产品id获取产品预约时间
-    api.getReserverTime({id}).then(res=>{
-      console.log(res,'----->')
-    })
-  }
+
   // 器材下架
   upOrDown(id, status) {
     if(status === '1'){
@@ -57,7 +72,7 @@ export default class list extends Component {
       status = '1'
     }
     api.upOrDown({id, status}).then(res => {
-      var str = status === '1' ? '器材上架成功' : '器材下架成功'
+      var str = status === '1' ? '器材下架成功' : '器材上架成功'
       res && this.getProductList();
       res && message.success(str);
     })
@@ -87,10 +102,9 @@ export default class list extends Component {
                 />
               }
               actions={[
-                <SettingOutlined key="setting" />,
-                <EditOutlined key="edit" />,
-                <EllipsisOutlined key="ellipsis" />,
-               ]}
+                <FieldTimeOutlined key="fieldtime" onClick={() => {this.showBookInfoModel(item)}}/>, //预约
+                <ShoppingCartOutlined key="shopping" />  // 加入购物车
+                ]}
                extra={ 
                <Button 
                type="primary" 
@@ -124,7 +138,16 @@ export default class list extends Component {
          <WrappedDemo close={this.handleOk} type={'1'}></WrappedDemo>
       </Modal>
 
-      {/* 获取器材预约时间*/}
+      {/* 修改预约信息*/}
+      <Modal
+          title="场地预约信息修改"
+          visible={this.state.showBookModal}
+          onOk={this.handleBookOk}
+          onCancel={this.handleBookCancel}
+          footer={null}
+     >
+         <WrappedEdit close={this.handleBookOk} cancel={this.handleBookCancel} active={this.state.activeBookInfo}></WrappedEdit>
+      </Modal>
      
   </div>
     )

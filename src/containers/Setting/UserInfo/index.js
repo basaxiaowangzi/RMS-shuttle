@@ -1,12 +1,27 @@
 import React from 'react'
-import { Descriptions, Badge } from 'antd';
-
+import { Descriptions, Badge, Card} from 'antd';
+import { EditOutlined, FieldTimeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import api from 'api'
 import './style.scss'
-
+const { Meta } = Card;
 export default class Ground extends React.Component {
+   constructor() {
+     super()
+     this.state = {
+       bookInfo: []
+     }
+   }
 
     componentDidMount () {
-        console.log('dddddd')
+       this.getBookInfo();
+    }
+
+    getBookInfo() {
+      api.getBookInfo({}).then(res => {
+        this.setState({
+          bookInfo: res
+        })
+      })
     }
 
     render() {
@@ -23,21 +38,23 @@ export default class Ground extends React.Component {
                 <Descriptions.Item label="Status" span={3}>
                   <Badge status="processing" text="Running" />
                 </Descriptions.Item>
-                <Descriptions.Item label="Negotiated Amount">$80.00</Descriptions.Item>
-                <Descriptions.Item label="Discount">$20.00</Descriptions.Item>
-                <Descriptions.Item label="Official Receipts">$60.00</Descriptions.Item>
-                <Descriptions.Item label="Config Info">
-                  Data disk type: MongoDB
-                  <br />
-                  Database version: 3.4
-                  <br />
-                  Package: dds.mongo.mid
-                  <br />
-                  Storage space: 10 GB
-                  <br />
-                  Replication factor: 3
-                  <br />
-                  Region: East China 1<br />
+                <Descriptions.Item label="预约信息">
+                    <div style={{display: 'flex', flexWrap:'wrap'}}>
+                    {this.state.bookInfo.map(book => {
+                      return (<div key={book.id} className="bookitem">
+                        <Card
+                                hoverable
+                                style={{ width: 240 }}
+                                cover={<img alt="example" src={book.img} width="150px" height="150px" />}
+                                actions={[
+                                <EditOutlined key="edit" onClick={()=>{this.ChangeInfo(book)}} />, // 修改预约信息
+                                   ]}
+                                 >
+                              <Meta title={book.title} description={JSON.parse(book.reserverTime)[0]} />
+                            </Card>
+                      </div>)
+                    })}
+                  </div>
                 </Descriptions.Item>
               </Descriptions>
             </div>

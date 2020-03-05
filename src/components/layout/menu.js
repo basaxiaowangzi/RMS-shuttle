@@ -143,7 +143,7 @@ function menu (props) {
           key: 18
         }
       ]
-    },
+      },
   ]
   const activeLink = Links.findIndex(({ path }) => path === props.location.pathname)
   return (

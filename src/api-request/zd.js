@@ -15,6 +15,10 @@ class Xhr {
   addEquipmentInfo = `${proxyKey}/reserve/add`
   getReservertimerList = `${proxyKey}/reserve/getReserveTime`
   upOrDownUrl = `${proxyKey}/reserve/updateStatus`
+  getBookInfoUrl = `${proxyKey}/reserve/getMemberReserve`
+  startBookUrl =`${proxyKey}/reserve/startReserve`
+  upDateBookInfoUrl = `${proxyKey}/reserve/updateReserveInfo`
+
   // 登录
   loginforEmail = (data = {}) =>
   apiReq(this.loginforEmailUrl, data,'post');
@@ -38,6 +42,18 @@ class Xhr {
   // 器材场地上下架
   upOrDown = (data= {}) => 
   apiReq(this.upOrDownUrl, data, 'post')
+
+  // 获取会员预约信息
+  getBookInfo = (data = {}) => 
+  apiReq(this.getBookInfoUrl, data, 'post')
+
+  //预约
+  startBook = (data = {}) =>
+  apiReq(this.startBookUrl, data, 'post')
+
+  // 修改预约信息
+  upDateBookInfo = (data ={}) =>
+  apiReq(this.upDateBookInfoUrl, data, 'post')
 
 
  // 权限设置

@@ -3,7 +3,8 @@ import { Card, Pagination, Button, Modal, Avatar, message } from 'antd';
 import { NavLink } from 'react-router-dom'
 import Breadrumb from '../../../components/Breadrumb/index'
 import WrappedDemo from '../list/AddProduct/index'
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import WrappedEdit from '../Components/EditProduct/index'
+import { EditOutlined, FieldTimeOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import api from 'api'
 import './style.scss'
 const { Meta } = Card;
@@ -13,11 +14,19 @@ const DEFAULTIMG = 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=21
 export default class list extends Component {
    state = {
      showAddModal:false,
-     groundList: []
+     showBookModal: false,
+     groundList: [],
+     activeBookInfo: {}
    }
   showAdd = () => {
     this.setState({
       showAddModal:true
+    })
+  }
+  showBookInfoModel= (info) => {
+    this.setState({
+      showBookModal: true,
+      activeBookInfo: info
     })
   }
   handleOk = () => {
@@ -29,6 +38,17 @@ export default class list extends Component {
   handleCancel = () => {
     this.setState({
       showAddModal:false
+    })
+  }
+  handleBookOk =() => {
+    this.setState({
+      showBookModal: false
+    })
+    this.getGroundList()
+  }
+  handleBookCancel =() => {
+    this.setState({
+      showBookModal:false
     })
   }
   getGroundList=()=> {
@@ -57,11 +77,12 @@ export default class list extends Component {
       status = '1'
     }
     api.upOrDown({id, status}).then(res => {
-      var str = status === '1' ? '场地上架成功' : '场地下架成功'
+      var str = status === '1' ? '场地下架成功' : '场地上架成功'
       res && this.getGroundList();
       res && message.success(str);
     })
   }
+
   render() {
     let {groundList=[]} = this.state;
     return (
@@ -87,9 +108,8 @@ export default class list extends Component {
                   height="100px"
                 />}
                actions={[
-                <SettingOutlined key="setting" />,
-                <EditOutlined key="edit" />,
-                <EllipsisOutlined key="ellipsis" />,
+                <FieldTimeOutlined key="fieldtime" onClick={() => {this.showBookInfoModel(item)}}/>, //预约
+                <ShoppingCartOutlined key="shopping" />  // 加入购物车
                 ]}
                extra={ 
                <Button 
@@ -125,7 +145,16 @@ export default class list extends Component {
          <WrappedDemo close={this.handleOk} type={'2'}></WrappedDemo>
       </Modal>
 
-      {/* 获取器材预约时间*/}
+      {/* 修改预约信息*/}
+      <Modal
+          title="场地预约信息修改"
+          visible={this.state.showBookModal}
+          onOk={this.handleBookOk}
+          onCancel={this.handleBookCancel}
+          footer={null}
+     >
+         <WrappedEdit close={this.handleBookOk} cancel={this.handleBookCancel} active={this.state.activeBookInfo}></WrappedEdit>
+      </Modal>
      
   </div>
     )
