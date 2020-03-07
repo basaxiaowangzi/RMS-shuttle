@@ -46,12 +46,14 @@ http.interceptors.response.use(
     // const code = ['operator31', 'token_error02', 'token_error01', 'token_error00', 'istorage03', '500']
     if (responseCode == '200') {
       return Promise.resolve(config.data.result)
-    } else if (responseCode === '4001' || responseCode === 'token_error02' || responseCode === 'token_error00') {
-      message.error(responseMsg)
-      // clearToken()
-      // window.location.href = '/#/login?back=true'
-      // window.location.reload()
-      return null
+    } else if (responseCode === 4001 || responseCode === 4007 || responseCode === 'token_error00') {
+      message.error('身份已过期，请重新登陆！')
+      clearToken()
+      setTimeout(()=>{
+        window.history.replaceState(null, '', '/#/login')
+        window.location.reload()
+        return null
+      },3000)
     } else if(responseCode === 500){
       message.error(responseMsg)
     }else {

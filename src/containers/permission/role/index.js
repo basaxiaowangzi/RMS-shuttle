@@ -16,7 +16,6 @@ export default class role extends React.Component {
     }
 
     componentDidMount () {
-        console.log('dddddd')
     }
 
     handleCancel = () => {

@@ -5,7 +5,7 @@ import './style.scss'
 export default class money extends React.Component {
 
     componentDidMount () {
-        console.log('dddddd')
+        
     }
 
     render() {

@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Menu, Icon } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
 
 const { SubMenu } = Menu;
 
-function menu (props) {
-  console.log(props.location.pathname);
+function Appmenu (props) {
+  const [currentMenu, setCurrentMenu] = useState(['/'])
+  const rootMenu = ['/','/statistics','/info','/member','/operate','/permission','/product','/setting']
+  // 菜单切换
+  function onOpenChange(openKeys) {
+    const latestOpenKey = openKeys.find(key => currentMenu.indexOf(key) === -1);
+    if (rootMenu.indexOf(latestOpenKey) === -1) {
+      setCurrentMenu(openKeys);
+    } else {
+      let openKeys = latestOpenKey ? [latestOpenKey] : []
+      setCurrentMenu(openKeys);
+    }
+  }
   const Links = [
     {
       path: '/statistics',
@@ -143,7 +154,7 @@ function menu (props) {
           key: 18
         }
       ]
-      },
+    },
   ]
   const activeLink = Links.findIndex(({ path }) => path === props.location.pathname)
   return (
@@ -151,6 +162,8 @@ function menu (props) {
       defaultSelectedKeys={[''+activeLink]}
       mode="inline"
       theme="dark"
+      openKeys={currentMenu}
+      onOpenChange={onOpenChange}
     >
       {
         Links.map((item, index) => (
@@ -173,4 +186,4 @@ function menu (props) {
   )
 }
 
-export default withRouter(menu)
+export default withRouter(Appmenu)

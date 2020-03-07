@@ -3,6 +3,8 @@
     width: 175px;
     height: 17px;
     margin: 30px auto;
+    font-size: 18px;
+    font-weight: bold;
     &>img{
       max-width: 100%;
     }
@@ -33,6 +35,20 @@
   }
 }
 .ant-layout-header{
+  .title{
+    margin-left: 170px;
+    color: #fff;
+    text-align: right;
+    .desc{
+      font-weight: bold;
+      font-size: 20px;
+      text-shadow:#ddd 3px 4px 20px;
+      float: left;
+    }
+    .logout{
+      cursor: pointer;
+    }
+  }
   .base-diag-container{
     line-height: 1;
   }
