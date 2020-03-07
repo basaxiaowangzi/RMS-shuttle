@@ -54,7 +54,7 @@ http.interceptors.response.use(
         window.location.reload()
         return null
       },3000)
-    } else if(responseCode === 500){
+    } else if(responseCode === 500 || responseCode === 9999){
       message.error(responseMsg)
     }else {
       // message.error(responseMsg)

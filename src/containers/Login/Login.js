@@ -22,6 +22,7 @@ class Login extends  React.Component {
           .then((data) => {
             if(data){
               message.success('登录成功！')
+              window.localStorage.setItem('userInfo', JSON.stringify(params))
               setToken(data.token)
               this.props.history.push('/')
             }
@@ -68,7 +69,7 @@ class Login extends  React.Component {
                   </Form.Item>
                   <Form.Item>
                     {getFieldDecorator('channel', {
-                      initialValue:res[2]&&res[2].split('=')[1] || '',
+                      initialValue:res[2]&&res[2].split('=')[1] || '1',
                       rules: [{ required: true, message: '入口' }],
                     })(
                       <Radio.Group>

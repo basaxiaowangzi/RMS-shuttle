@@ -55,6 +55,7 @@ class AddProduct extends React.Component {
   // 获取预约时间
   getBookTime(id) {
     api.getReserverTime({id}).then(res => {
+      console.log(res)
       this.setState({
         booKTimeArr: res || []
       })
@@ -96,7 +97,7 @@ class AddProduct extends React.Component {
           </Form.Item>
           <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
 
-            <Button type="dashed" onClick={()=>{this.props.handleBookCancel()}}>
+            <Button type="dashed" onClick={()=>{this.props.cancel()}}>
               取消
             </Button>
             <Button type="primary" htmlType="submit">

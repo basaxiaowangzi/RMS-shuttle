@@ -16,12 +16,22 @@ export default class list extends Component {
    state = {
      showAddModal:false,
      showBookModal: false,
-     activeBookInfo: {}
+     activeBookInfo: {},
+     editInfo: {},
+     isEdit: false
    }
-  showAdd = () => {
-    this.setState({
-      showAddModal:true
-    })
+  showAdd = (item) => {
+    if(item){
+      this.setState({
+        showAddModal:true,
+        editInfo: item,
+        isEdit: true
+      })
+    }else{
+      this.setState({
+        showAddModal:true
+      })
+    }
   }
   showBookInfoModel= (info) => {
     this.setState({
@@ -31,13 +41,17 @@ export default class list extends Component {
   }
   handleOk = () => {
     this.setState({
-      showAddModal:false
+      showAddModal:false,
+      isEdit: false,
+      editInfo: {}
     })
     this.getProductList()
   }
   handleCancel = () => {
     this.setState({
-      showAddModal:false
+      showAddModal:false,
+      isEdit: false,
+      editInfo: {}
     })
   }
   handleBookOk =() => {
@@ -72,7 +86,7 @@ export default class list extends Component {
       status = '1'
     }
     api.upOrDown({id, status}).then(res => {
-      var str = status === '1' ? '器材下架成功' : '器材上架成功'
+      var str = status === '1' ? '器材上架成功' : '器材下架成功'
       res && this.getProductList();
       res && message.success(str);
     })
@@ -102,8 +116,14 @@ export default class list extends Component {
                 />
               }
               actions={[
-                <FieldTimeOutlined key="fieldtime" onClick={() => {this.showBookInfoModel(item)}}/>, //预约
-                <ShoppingCartOutlined key="shopping" />  // 加入购物车
+                <div onClick={() => {this.showBookInfoModel(item)}}>
+                  <FieldTimeOutlined key="fieldtime" />
+                  <span style={{fontSize:'12px', marginLeft: '6px'}}>预约</span>
+                </div>,
+                <div onClick={() => {this.showAdd(item)}}>
+                  <ShoppingCartOutlined key="shopping" /> 
+                  <span style={{fontSize:'12px', marginLeft: '6px'}}>加入购物车</span>
+                </div>
                 ]}
                extra={ 
                <Button 
@@ -111,8 +131,8 @@ export default class list extends Component {
                shape='round'
                size='small'
                onClick={()=>{this.upOrDown(item.id, item.upStatus)}}
-               style={{backgroundColor:item.upStatus === '2' ? 'green': 'red', borderColor:'#ccc'}}
-               >{item.upStatus === '1' ? '下架': '上架'}</Button>  }
+               style={{backgroundColor:item.upStatus === '1' ? 'green': 'red', borderColor:'#ccc'}}
+               >{item.upStatus === '2' ? '下架': '上架'}</Button>  }
               style={{ width: 200 }}
               >
               <Meta
@@ -129,18 +149,18 @@ export default class list extends Component {
 
       {/* 新增器材  名称 图片  描述 价格*/}
       <Modal
-          title="新增器材"
+           title={this.state.isEdit && '修改器材信息' || "新增器材"}
           visible={this.state.showAddModal}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={null}
      >
-         <WrappedDemo close={this.handleOk} type={'1'}></WrappedDemo>
+         <WrappedDemo close={this.handleOk}  cancel={this.handleCancel} type={'1'}  active={this.state.editInfo} isEdit={this.state.isEdit}></WrappedDemo>
       </Modal>
 
       {/* 修改预约信息*/}
       <Modal
-          title="场地预约信息修改"
+          title="器材预约"
           visible={this.state.showBookModal}
           onOk={this.handleBookOk}
           onCancel={this.handleBookCancel}

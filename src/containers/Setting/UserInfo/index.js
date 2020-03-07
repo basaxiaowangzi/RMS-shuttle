@@ -8,7 +8,9 @@ export default class Ground extends React.Component {
    constructor() {
      super()
      this.state = {
-       bookInfo: []
+       bookInfo: [], //全部预约消息
+       activeBook: {},
+       showUpdateModel: false
      }
    }
 
@@ -23,13 +25,25 @@ export default class Ground extends React.Component {
         })
       })
     }
+    // 修改预约信息
+    ChangeInfo(book) {
+      console.log(book)
+      this.setState({
+        activeBook: book,
+        showUpdateModel: true
+      })
+      // api.upDateBookInfo({})
+
+    }
 
     render() {
+      var info =  window.localStorage.getItem('userInfo');
+      var {phone, channel, password} = JSON.parse(info);
         return (
             <div className='container'>
              <Descriptions title="个人信息" layout="vertical" bordered>
                 <Descriptions.Item label="用户名">Cloud Database</Descriptions.Item>
-                <Descriptions.Item label="手机号码">Prepaid</Descriptions.Item>
+                <Descriptions.Item label="手机号码">{phone}</Descriptions.Item>
                 <Descriptions.Item label="账户余额">YES</Descriptions.Item>
                 <Descriptions.Item label="场地">2018-04-24 18:00:00</Descriptions.Item>
                 <Descriptions.Item label="Usage Time" span={2}>
@@ -46,17 +60,19 @@ export default class Ground extends React.Component {
                                 hoverable
                                 style={{ width: 240 }}
                                 cover={<img alt="example" src={book.img} width="150px" height="150px" />}
-                                actions={[
-                                <EditOutlined key="edit" onClick={()=>{this.ChangeInfo(book)}} />, // 修改预约信息
-                                   ]}
+                                // actions={[
+                                // <EditOutlined key="edit" onClick={()=>{this.ChangeInfo(book)}} />, // 修改预约信息
+                                //    ]}
                                  >
-                              <Meta title={book.title} description={JSON.parse(book.reserverTime)[0]} />
+                              <Meta title={book.title} description={book.reserverTime || '-'} />
                             </Card>
                       </div>)
                     })}
                   </div>
                 </Descriptions.Item>
               </Descriptions>
+
+
             </div>
         )
     }
